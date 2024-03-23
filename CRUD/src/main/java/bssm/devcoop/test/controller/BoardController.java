@@ -4,10 +4,7 @@ import bssm.devcoop.test.dto.BoardRequestDto;
 import bssm.devcoop.test.dto.BoardResponseDto;
 import bssm.devcoop.test.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class BoardController {
         boardService.create(boardRequestDto);
     }
 
-    @PostMapping("/read")
+    @GetMapping("/read")
     public List<BoardResponseDto> select() {
         return boardService.read();
     }
