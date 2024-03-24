@@ -2,11 +2,14 @@ package bssm.devcoop.test.service;
 
 import bssm.devcoop.test.dto.BoardRequestDto;
 import bssm.devcoop.test.dto.BoardResponseDto;
+import bssm.devcoop.test.dto.BoardUpdateRequestDto;
 import bssm.devcoop.test.entity.Board;
 import bssm.devcoop.test.repository.BoardRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,5 +44,10 @@ public class BoardService {
         }
 
         return boardResponseList;
+    }
+
+    public void update(BoardUpdateRequestDto boardUpdateRequestDto, Long id) {
+        Board board = BoardRepository.findById(id);
+        board.update(boardUpdateRequestDto.getName(), boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
     }
 }
