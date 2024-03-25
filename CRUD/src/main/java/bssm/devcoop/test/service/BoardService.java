@@ -18,12 +18,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+
     public void create(BoardRequestDto boardRequestDto) {
         String name = boardRequestDto.getName();
         String title = boardRequestDto.getTitle();
         String content = boardRequestDto.getContent();
 
-        if(name == null) {
+        if (name == null) {
             throw new RuntimeException("이름이 부정확합니다 >.<");
         }
 
@@ -57,5 +58,9 @@ public class BoardService {
                     board.update(name, title, content);
                     boardRepository.save(board);
                 });
+    }
+
+    public void delete(Long id) {
+        boardRepository.deleteById(id);
     }
 }
