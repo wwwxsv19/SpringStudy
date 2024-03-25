@@ -25,8 +25,8 @@ public class BoardController {
         return boardService.read();
     }
 
-    @PostMapping("/update")
-    public void update(@RequestBody BoardUpdateRequestDto boardUpdateRequestDto, Long id) {
-        boardService.update(boardUpdateRequestDto, id);
+    @PutMapping("/update/{id}")
+    public void update(@PathVariable Long id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+        boardService.update(id, boardUpdateRequestDto);
     }
 }

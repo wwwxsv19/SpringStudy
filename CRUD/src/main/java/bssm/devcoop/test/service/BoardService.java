@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,8 +47,15 @@ public class BoardService {
         return boardResponseList;
     }
 
-    public void update(BoardUpdateRequestDto boardUpdateRequestDto, Long id) {
-        Board board = BoardRepository.findById(id);
-        board.update(boardUpdateRequestDto.getName(), boardUpdateRequestDto.getTitle(), boardUpdateRequestDto.getContent());
+    public void update(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
+        String name = boardUpdateRequestDto.getName();
+        String title = boardUpdateRequestDto.getTitle();
+        String content = boardUpdateRequestDto.getContent();
+
+        boardRepository.findById(id)
+                .ifPresent(board -> {
+                    board.update(name, title, content);
+                    boardRepository.save(board);
+                });
     }
 }
