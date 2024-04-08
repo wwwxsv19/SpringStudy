@@ -9,27 +9,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserLoginService {
     private final UserRepository userRepository;
 
-    public String login(UserResponseDto userResponseDto) {
+    public User login(UserResponseDto userResponseDto) {
         String email = userResponseDto.getEmail();
         String password = userResponseDto.getPassword();
 
-        if ( email == null ) {
-            throw new RuntimeException("not correct email");
+        Optional<User> findUser = userRepository.findByEmail(email);
+        if(!findUser.orElseThrow(()->new RuntimeException("해당 이메일이 존재하지 않습니다."))
+                .checkPW(password)) {
+            throw new RuntimeException("이메일과 비밀번호가 일치하지 않습니다.");
         }
 
-        userRepository.findByEmail(email)
-                .ifPresent( user -> {
-                   if(!user.checkPW(password)) {
-                       throw new RuntimeException("not correct password");
-                   }
-                });
-
-        return "login success";
+        return findUser.get();
     }
 }

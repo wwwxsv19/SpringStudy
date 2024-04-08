@@ -2,6 +2,7 @@ package bssm.devcoop.test.controller;
 
 import bssm.devcoop.test.dto.UserRequestDto;
 import bssm.devcoop.test.dto.UserResponseDto;
+import bssm.devcoop.test.entity.User;
 import bssm.devcoop.test.service.UserService;
 import bssm.devcoop.test.service.UserLoginService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final UserLoginService userLoginService;
 
     @PostMapping("/create")
     public void insert(@RequestBody UserRequestDto userRequestDto) {
@@ -20,6 +22,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String show(@RequestBody UserResponseDto userResponseDto) {
-        return UserLoginService.login(userResponseDto);
+        User user = userLoginService.login(userResponseDto);
+
+        return "로그인 성공!";
     }
 }
