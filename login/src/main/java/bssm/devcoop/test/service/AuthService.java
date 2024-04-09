@@ -1,11 +1,14 @@
 package bssm.devcoop.test.service;
 
 import bssm.devcoop.test.dto.LoginResponseDto;
-import bssm.devcoop.test.entity.JwtUtil;
+import bssm.devcoop.test.entity.User;
+import bssm.devcoop.test.util.JwtUtil;
 import bssm.devcoop.test.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,19 +19,26 @@ public class AuthService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private String loginToken(LoginResponseDto loginResponseDto) throws Exception {
-        Long id = loginResponseDto.getId();
-        String email = loginResponseDto.getEmail();
+    Long exprTime = 1000 * 60 * 60L;
+
+    public String login(LoginResponseDto userResponseDto) {
+        String email = userResponseDto.getEmail();
+        String password = userResponseDto.getPassword();
+
+        User findUser = userRepository.findByEmail(email);
+
+        if(findUser == null) {
+            throw new RuntimeException("can not found user");
+        }
 
         try {
-            if(id == null || email == null) {
-                throw new RuntimeException("Bad Request Auth Error");
+            if(!findUser.checkPW(password)) {
+                throw new RuntimeException("not correct password");
             }
-            String token = jwtUtil.createJwt(id, email, secretKey, 1000 * 60 * 60L);
+            String token = jwtUtil.createJwt(findUser.getId(), email, secretKey, exprTime);
             return token;
         } catch (Exception e) {
-            throw new Exception("Internal server Error");
+            throw new RuntimeException("Internal server Error");
         }
     }
-
 }

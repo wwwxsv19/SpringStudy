@@ -1,4 +1,4 @@
-package bssm.devcoop.test.entity;
+package bssm.devcoop.test.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

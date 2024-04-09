@@ -8,12 +8,12 @@ spring:
     username: root
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     generate-ddl: true
   main:
     allow-bean-definition-overriding: true
 
-server:
+
   servlet:
     context-path: /api # 디폴트 url 경로
 
