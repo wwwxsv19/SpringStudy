@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponseDto {
+public class LoginResponseDto {
+    private Long id;
     private String email;
     private String password;
 
-    public UserResponseDto(User user) {
+    public LoginResponseDto(User user) {
+        this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
     }

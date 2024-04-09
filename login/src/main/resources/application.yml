@@ -16,3 +16,7 @@ spring:
 server:
   servlet:
     context-path: /api # 디폴트 url 경로
+
+jwt:
+  secret: holymolyiveilovethissongHolyMolyIveIloveThisSongHOLYMOLYIVEILOVETHISSONGholymolyiveilovethissongHolyMolyIveIloveThisSongHOLYMOLY
+#  token-validity-in-seconds:
