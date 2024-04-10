@@ -1,6 +1,6 @@
 package bssm.devcoop.test.controller;
 
-import bssm.devcoop.test.dto.LoginResponseDto;
+import bssm.devcoop.test.dto.LoginRequestDto;
 import bssm.devcoop.test.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +15,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public String show(@RequestBody LoginResponseDto userResponseDto) {
+    public String show(@RequestBody LoginRequestDto userResponseDto) {
         return authService.login(userResponseDto);
     }
 }
