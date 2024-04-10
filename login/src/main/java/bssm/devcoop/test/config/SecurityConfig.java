@@ -24,6 +24,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request -> request
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/user/create").permitAll()
                                 .anyRequest().permitAll()
                 )
                 .sessionManagement(

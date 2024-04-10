@@ -14,6 +14,7 @@ spring:
     allow-bean-definition-overriding: true
 
 
+server:
   servlet:
     context-path: /api # 디폴트 url 경로
 
