@@ -6,11 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "user")
+@Entity(name = "testuser")
 @Table
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class TestUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -20,14 +20,10 @@ public class User {
     private String password;
 
     @Builder
-    public User(long id, String name, String email, String password) {
+    public TestUser(long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public boolean checkPW(String password) {
-        return (this.password).equals(password);
     }
 }
